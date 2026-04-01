@@ -2,30 +2,30 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]:
             return (0)
-
-        row_nums = len(grid)
-        col_nums = len(grid[0])
-        islands = 0
-        visited = set()
+        num_rows = len(grid)
+        num_cols = len(grid[0])
         WATER = '0'
         ISLAND = '1'
-        
-        def is_lnad(row, col):
-            if not (0 <= row < row_nums and 0 <= col < col_nums):
-                return (False)
-            if grid[row][col] == WATER:
-                return (False)
-            return (True)
+        visited = set()
+        islands = 0
+        directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
-        for r in range (row_nums):
-            for c in range (col_nums):
-                if grid[r][c] == WATER:
+        def is_land(row, col):
+            if not (0<= row < num_rows and 0<= col < num_cols):
+                return False
+            if (grid[row][col] == WATER):
+                return False
+            return True
+
+        for r in range(num_rows):
+            for c in range(num_cols):
+                if (grid[r][c] == WATER):
                     continue
-                if grid[r][c] in visited:
+                if ((r, c) in visited):
                     continue
                 islands += 1
-                stack = [(r, c)]
                 visited.add((r, c))
+                stack = [(r, c)]
 
                 while stack:
                     x, y = stack.pop()

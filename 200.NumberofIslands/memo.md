@@ -26,6 +26,14 @@ class Solution:
 
 流れを理解しやすくするために関数は使わずに一度書いてみる
 
+### DFSの流れ
+他の参加者のコードなどをみて、流れをまとめてみる。
+1. 探索の開始
+2. 現在の状態からの遷移先
+3. 重複探索確認
+4. 探索終了条件確認
+それぞれ何が条件かを考えると、見通しが良い気がする。
+
 ```py
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -127,7 +135,9 @@ class Solution:
         return islands
 ```
 
-- BFSでも解いてみる
+### BFSでも解いてみる
+- 今回の問題でDFSとBFSでどのような違いがあるのかわからなかった。
+
 ```py
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
