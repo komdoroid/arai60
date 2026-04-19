@@ -7,34 +7,38 @@ class Solution:
         num_cols = len(grid[0])
         max_area = 0
         visited = set()
-        LAND = 1
         WATER = 0
         directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
+        def can_visit(row, col) -> bool:
+            if not (0 <= row < num_rows and 0 <= col< num_cols):
+                return False
+            if (grid[row][col] == WATER):
+                return False
+            if ((row, col) in visited):
+                return False
+            return True
+        
+        def calc_area(row, col) -> int:
+            visited.add((row, col))
+            stack = [(row, col)]
+
+            area = 1
+            while stack:
+                y, x = stack.pop()
+                for dy, dx in directions:
+                    next_y = y + dy
+                    next_x = x + dx
+                    if not can_visit(next_y, next_x):
+                        continue
+                    visited.add((next_y, next_x))
+                    stack.append((next_y, next_x))
+                    area += 1
+            return area
+        
         for row in range(num_rows):
             for col in range(num_cols):
-                if (grid[row][col] == 0):
+                if not can_visit(row, col):
                     continue
-                if ((row, col) in visited):
-                    continue
-                visited.add((row, col))
-                stack = [(row, col)]
-
-                aria = 1
-                while stack:
-                    y, x = stack.pop()
-                    for dy, dx in directions:
-                        next_y = y + dy
-                        next_x = x + dx
-                        if (!(0 <= next_y < num_rows and 0 <= next_x < num_cols)):
-                            continue
-                        if (grid[next_y][next_x] == 0):
-                            continue
-                        if ((next_y, next_x) in visited):
-                            continue
-                        visited.add((next_y, next_x))
-                        stack.append((next_y, next_x))
-                        aria += 1
-                if (max_aria < aria):
-                    mas_aria = aria
-        return max_aria
+                max_area = max(max_area, calc_area(row, col))
+        return max_area
