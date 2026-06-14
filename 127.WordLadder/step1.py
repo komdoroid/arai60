@@ -13,10 +13,10 @@ class Solution:
             if current_word == endWord:
                 return steps
             for i in range(len(current_word)):
-                for c in 'abcdefghijklmnopqrstuvwxyz':
+                for c in string.ascii_lowercase:
                     if c == current_word[i]:
                         continue
-                    next_word = current_word[:i] + c + current_word[i+1:]
+                    next_word = f"{current_word[:i]}{c}{current_word[i+1:]}" 
                     if next_word in word_set and next_word not in visited:
                         visited.add(next_word)
                         queue.append((next_word, steps + 1))
